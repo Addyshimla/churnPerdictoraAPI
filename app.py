@@ -12,7 +12,7 @@ app = Flask(__name__)
 def documentation():
     return send_from_directory('static', ' documentation.html')
 
-@app.route('/predict', methods=['POST'])
+@app.route('/api/v1/churnPrediction', methods=['POST'])
 def predict():
     required_columns = [
         'Tenure', 'PreferredLoginDevice', 'CityTier', 'WarehouseToHome',
