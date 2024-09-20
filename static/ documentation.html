@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Churn Prediction API Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        header {
+            background: #007bff;
+            color: #fff;
+            padding: 20px 20px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        h2, h3 {
+            color: #007bff;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #007bff;
+            white-space: nowrap;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        ul {
+            list-style-type: square;
+            padding-left: 20px;
+        }
+        .note {
+            background-color: #ffeb3b;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .table-responsive {
+            overflow-x: auto;
+            margin: 20px 0;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+        }
+        @media (max-width: 600px) {
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Churn Prediction API</h1>
+</header>
+
+<div class="container">
+    <p>This API predicts customer churn based on input parameters provided in a CSV file. It returns predictions and probabilities for each customer.</p>
+
+    <h2>Base URL</h2>
+    <p><code>http://localhost:5000/predict</code></p>
+
+    <h2>HTTP Method</h2>
+    <p><strong>POST</strong></p>
+
+    <h2>Input Requirements</h2>
+    <h3>1. CSV File Format</h3>
+    <p>Your CSV file must include the following columns:</p>
+    <ul>
+        <li><code>CustomerID</code></li>
+        <li><code>Tenure</code></li>
+        <li><code>PreferredLoginDevice</code></li>
+        <li><code>CityTier</code></li>
+        <li><code>WarehouseToHome</code></li>
+        <li><code>PreferredPaymentMode</code></li>
+        <li><code>Gender</code></li>
+        <li><code>HourSpendOnApp</code></li>
+        <li><code>NumberOfDeviceRegistered</code></li>
+        <li><code>PreferredOrderCat</code></li>
+        <li><code>SatisfactionScore</code></li>
+        <li><code>MaritalStatus</code> (0 or 1)</li>
+        <li><code>NumberOfAddress</code></li>
+        <li><code>Complain</code></li>
+        <li><code>OrderAmountHikeFromLastYear</code></li>
+        <li><code>OrderCount</code></li>
+        <li><code>DaySinceLastOrder</code></li>
+        <li><code>CashbackAmount</code></li>
+    </ul>
+
+    <h3>2. Example CSV Format</h3>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>CustomerID</th>
+                    <th>Tenure</th>
+                    <th>PreferredLoginDevice</th>
+                    <th>CityTier</th>
+                    <th>WarehouseToHome</th>
+                    <th>PreferredPaymentMode</th>
+                    <th>Gender</th>
+                    <th>HourSpendOnApp</th>
+                    <th>NumberOfDeviceRegistered</th>
+                    <th>PreferredOrderCat</th>
+                    <th>SatisfactionScore</th>
+                    <th>MaritalStatus</th>
+                    <th>NumberOfAddress</th>
+                    <th>Complain</th>
+                    <th>OrderAmountHikeFromLastYear</th>
+                    <th>OrderCount</th>
+                    <th>DaySinceLastOrder</th>
+                    <th>CashbackAmount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>860</td>
+                    <td>12</td>
+                    <td>Desktop</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>No Payment</td>
+                    <td>Female</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>No Order</td>
+                    <td>4</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>0.0</td>
+                    <td>0</td>
+                    <td>0.0</td>
+                    <td>0.0</td>
+                </tr>
+                <tr>
+                    <td>861</td>
+                    <td>6</td>
+                    <td>Mobile</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>Installment</td>
+                    <td>Male</td>
+                    <td>3</td>
+                    <td>2</td>
+                    <td>Electronics</td>
+                    <td>5</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>0.0</td>
+                    <td>1</td>
+                    <td>5</td>
+                    <td>0.0</td>
+                    <td>0.0</td>
+
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2>Making a Request</h2>
+    <p>To make a prediction, send a POST request to the endpoint with the CSV file as part of the request body. You can use tools like <strong>Postman</strong> or <strong>cURL</strong>.</p>
+
+    <h3>Example Request using cURL</h3>
+    <pre>
+curl -X POST -F "file=@/path/to/your/file.csv" http://localhost:5000/predict
+    </pre>
+
+    <h2>Response Structure</h2>
+    <p>The API will return a JSON response containing predictions for each customer and a summary in the following format:</p>
+    <pre>
+{
+    "predictions": [
+        {
+            "CustomerID": 856,
+            "predicted_class": "Churn",  // or "Not Churn"
+            "probability": [0.0, 1.0]  // Probability of not churn and churn
+        },
+        ...
+    ],
+    "summary": {
+        "total_churn": 1146,
+        "total_non_churn": 1189,
+        "total_records": 2335
+    }
+}
+    </pre>
+
+    <h2>Error Handling</h2>
+    <p>The API will return error messages for issues related to the uploaded file. Common errors include:</p>
+    <ul>
+        <li><code>{"error": "No file part in the request"}</code></li>
+        <li><code>{"error": "Invalid file format. Please upload a CSV file."}</code></li>
+        <li><code>{"error": "Missing columns in the CSV file: Tenure, CityTier"}</code></li>
+    </ul>
+
+    <div class="note">
+        <strong>Note:</strong> Ensure that your CSV file is properly formatted and includes all required columns to avoid errors.
+    </div>
+
+    <h2>Conclusion</h2>
+    <p>By following the instructions above, you can effectively use the Churn Prediction API to get customer churn predictions. For additional support, please refer to the developer documentation or contact our support team.</p>
+</div>
+
+<footer>
+    <p>&copy; 2024 Churn Prediction API. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
